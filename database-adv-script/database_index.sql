@@ -1,5 +1,5 @@
 -- BEFORE
-EXPLAIN
+EXPLAIN ANALYZE
 SELECT
     u.first_name,
     b.booking_id,
@@ -8,7 +8,6 @@ FROM users u
 JOIN bookings b ON u.user_id = b.user_id
 WHERE b.created_at > '2025-01-01'
 ORDER BY b.created_at DESC;
-
 
 -- INDEXES
 -- USERS
@@ -28,7 +27,7 @@ CREATE INDEX idx_properties_location ON properties(location);
 CREATE INDEX idx_reviews_property_id ON reviews(property_id);
 
 -- AFTER
-EXPLAIN
+EXPLAIN ANALYZE
 SELECT
     u.first_name,
     b.booking_id,
