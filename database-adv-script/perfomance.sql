@@ -4,8 +4,6 @@
 -- Associated property details (properties)
 -- Associated payment details (payments)
 
-
--- analyze performance
 EXPLAIN FORMAT=TRADITIONAL
 SELECT
     b.booking_id,
@@ -33,21 +31,8 @@ SELECT
 FROM bookings b
 JOIN users u ON b.user_id = u.user_id
 JOIN properties p ON b.property_id = p.property_id
-LEFT JOIN payments pay ON b.booking_id = pay.booking_id;
+LEFT JOIN payments pay ON b.booking_id = pay.booking_id
 
-
-
--- refactored
-EXPLAIN FORMAT=TRADITIONAL
-SELECT
-    b.booking_id,
-    b.start_date,
-    b.end_date,
-    u.first_name,
-    u.email,
-    p.name AS property_name,
-    pay.amount AS payment_amount
-FROM bookings b
-JOIN users u ON b.user_id = u.user_id
-JOIN properties p ON b.property_id = p.property_id
-LEFT JOIN payments pay ON b.booking_id = pay.booking_id;
+-- WHERE clause added to filter recent confirmed bookings
+WHERE b.status = 'confirmed'
+AND b.created_at > '2025-01-01';
