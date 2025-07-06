@@ -26,3 +26,39 @@ FROM Bookings
 FULL OUTER JOIN Users ON Bookings.user_id = Users.user_id
 ORDER BY Bookings.booking_id;
 ```
+
+## 📌 Subqueries in SQL
+
+Subqueries are queries nested inside another SQL query. They help break down complex logic into smaller, manageable parts.
+
+### 🔄 Types of Subqueries
+
+1. **Non-Correlated Subquery**
+   - Executes independently of the outer query.
+   - Example:
+     ```sql
+     SELECT name
+     FROM Properties
+     WHERE property_id IN (
+         SELECT property_id
+         FROM Reviews
+         GROUP BY property_id
+         HAVING AVG(rating) > 4.0
+     );
+     ```
+
+2. **Correlated Subquery**
+   - Depends on the outer query for its values.
+   - Runs once for every row considered by the outer query.
+   - Example:
+     ```sql
+     SELECT first_name, last_name
+     FROM Users u
+     WHERE (
+         SELECT COUNT(*)
+         FROM Bookings b
+         WHERE b.user_id = u.user_id
+     ) > 3;
+     ```
+
+
