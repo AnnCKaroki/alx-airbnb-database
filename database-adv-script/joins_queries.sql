@@ -12,3 +12,4 @@ LEFT JOIN Reviews ON Properties.property_id = Reviews.property_id
 SELECT Users.first_name, Users.last_name, Bookings.booking_id
 FROM Bookings
 FULL OUTER JOIN Users ON Bookings.user_id = Users.user_id
+ORDER BY Bookings.booking_id;
